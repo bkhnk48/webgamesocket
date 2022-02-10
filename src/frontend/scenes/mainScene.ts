@@ -117,9 +117,18 @@ export class MainScene extends Phaser.Scene {
     this.load.html("des", "des.html");
   }
 
+  public initGraph(): void{
+    if(Constant.MODE == ModeOfPathPlanning.FRANSEN){
+      this.spaceGraph = new Graph(52, 28, this.danhsachke, this.pathPos);
+    }
+    else{
+      this.emergencyGraph = new EmergencyGraph(52, 28, this.danhsachke, this.pathPos);
+    }
+  }
+
   create() {
 
-    this.add.text(500,300,"press nowhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
+    this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
     this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
     this.playersConnectedText = this.add.text(20,20,"")
