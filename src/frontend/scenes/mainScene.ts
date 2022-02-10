@@ -52,7 +52,7 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
 
-    this.add.text(500,300,"press v..v.where to hop", {fontSize:"50px"}).setOrigin(.5,.5)
+    this.add.text(500,300,"press nowhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
     this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
     this.playersConnectedText = this.add.text(20,20,"")
