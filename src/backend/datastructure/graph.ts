@@ -1,7 +1,7 @@
 import { Position } from "../../shared/classes/position";
 import { Node2D, StateOfNode2D } from "../../shared/classes/node";
 import { Agent } from "../../shared/classes/agent";
-//import { AutoAgv } from "./AutoAgv";
+import { AutoAgv } from "../../shared/classes/autoagv";
 //import { Agv } from "./agv";
 
 export class Graph {
