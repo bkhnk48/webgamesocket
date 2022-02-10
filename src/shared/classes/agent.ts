@@ -3,7 +3,7 @@ import { Actor } from "./actor";
 import { Position } from "./position";
 import { Text } from "./text";
 import { Astar } from "../../backend/algorithm/AStarSearch";
-import { Graph } from "./graph";
+import { Graph } from "../../backend/datastructure/graph";
 export class Agent extends Actor {
   private startPos: Position;
   private endPos: Position;
