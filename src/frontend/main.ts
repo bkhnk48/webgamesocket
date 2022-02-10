@@ -1,12 +1,16 @@
 import 'phaser'
-import MainScene from './scenes/mainScene'
-
+import {MainScene} from './scenes/mainScene'
+import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js'
 
 const DEFAULT_WIDTH = 1024
 const DEFAULT_HEIGHT = 800
 
 const config: Phaser.Types.Core.GameConfig = {
+  type: Phaser.WEBGL,
   backgroundColor: '#aaaaaa',
+  dom: {
+    createContainer: true
+  },
   scale: {
     parent: 'phaser-game',
     mode: Phaser.Scale.FIT,
@@ -17,6 +21,15 @@ const config: Phaser.Types.Core.GameConfig = {
   scene: [
      MainScene, 
   ],
+  plugins: {
+    scene: [{
+      key: 'rexUI',
+      plugin: UIPlugin,
+      mapping: 'rexUI'
+    },
+
+    ]
+  },
   physics: {
     default: 'matter',
     arcade: {
