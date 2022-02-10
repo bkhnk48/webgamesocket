@@ -8,6 +8,7 @@ import { Agent } from "../../shared/classes/agent";
 import { Agv } from "../../shared/classes/agv";
 import { AutoAgv } from "../../shared/classes/autoagv";
 import { Forcasting } from "../../backend/statistic/forcasting";
+import { Graph } from "../../backend/datastructure/graph";
 
 interface UserData {
   socketId: string,
@@ -41,7 +42,7 @@ export class MainScene extends Phaser.Scene {
   private saveButton?: Phaser.GameObjects.Text;
   private loadButton?: Phaser.GameObjects.Text;
   private mapData: any = {};
-  //private spaceGraph?: Graph;
+  private spaceGraph?: Graph;
   //private emergencyGraph?: EmergencyGraph;
   private doorPos!: Position[];
   private timeText?: Phaser.GameObjects.Text;
