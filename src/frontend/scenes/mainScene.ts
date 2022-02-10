@@ -3,6 +3,7 @@ import { Scene, Tilemaps } from "phaser";
 import io from 'socket.io-client'
 import Square from '../objects/square'
 import Ball from '../objects/ball'
+import { Position } from "../../shared/classes/position";
 
 interface UserData {
   socketId: string,
@@ -17,7 +18,20 @@ interface UserData {
 
 
 export default class MainScene extends Phaser.Scene {
- 
+  private map!: Tilemaps.Tilemap;
+  private tileset!: Tilemaps.Tileset;
+  private groundLayer!: Tilemaps.TilemapLayer;
+  private elevatorLayer!: Tilemaps.TilemapLayer;
+  private roomLayer!: Tilemaps.TilemapLayer;
+  private gateLayer!: Tilemaps.TilemapLayer;
+  private wallLayer!: Tilemaps.TilemapLayer;
+  private doorLayer!: Tilemaps.TilemapLayer;
+  private pathLayer!: Tilemaps.TilemapLayer;
+  private noPathLayer!: Tilemaps.TilemapLayer;
+  private bedLayer!: Tilemaps.TilemapLayer;
+  private groundPos!: Position[];
+  private pathPos!: Position[];
+  private danhsachke: Position[][][];
   firstHi = false  
   playersConnectedText: Phaser.GameObjects.Text
     player: Square
