@@ -10,6 +10,7 @@ import { AutoAgv } from "../../shared/classes/autoagv";
 import { Forcasting } from "../../backend/statistic/forcasting";
 import { Graph } from "../../backend/datastructure/graph";
 import { EmergencyGraph } from "../../backend/datastructure/emergencygraph";
+import { Constant, ModeOfPathPlanning } from "../../shared/constant";
 
 interface UserData {
   socketId: string,
@@ -73,6 +74,29 @@ export class MainScene extends Phaser.Scene {
 
   constructor() {
     super('MainScene')
+    this.agents = new Array();
+    this.groundPos = new Array();
+    this.pathPos = new Array();
+    this.danhsachke = new Array(52);
+    this.doorPos = new Array();
+    this.autoAgvs = new Set();
+    this.forcasting = new Forcasting();
+    for (let i = 0; i < this.danhsachke.length; i++) {
+      this.danhsachke[i] = new Array(28);
+      for (let j = 0; j < this.danhsachke[i].length; j++) {
+        this.danhsachke[i][j] = [];
+      }
+    }
+    this.forcasting = new Forcasting();
+  }
+
+  public get graph(): Graph{
+    if(Constant.MODE == ModeOfPathPlanning.FRANSEN){
+      return (this.spaceGraph as Graph);
+    }
+    else{
+      return (this.emergencyGraph as Graph);
+    }
   }
 
   init(data: any) { }
