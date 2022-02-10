@@ -395,4 +395,58 @@ export class MainScene extends Phaser.Scene {
       .setPosition(window.innerWidth - 245, 320);
   }
 
+  addButton(): void {
+    this.saveButton = this.add.text(window.innerWidth - 200, 50, "Save data", {
+      backgroundColor: "#eee",
+      padding: { bottom: 5, top: 5, left: 10, right: 10 },
+      color: "#000",
+      fontSize: "24px",
+      fontStyle: "bold",
+    });
+    this.loadButton = this.add.text(window.innerWidth - 200, 110, "Load data", {
+      backgroundColor: "#eee",
+      padding: { bottom: 5, top: 5, left: 10, right: 10 },
+      color: "#000",
+      fontSize: "24px",
+      fontStyle: "bold",
+    });
+    this.saveButton
+      .setInteractive()
+      .on("pointerdown", () => this.handleClickSaveButton());
+    this.loadButton
+      .setInteractive()
+      .on("pointerdown", () => this.handleClickLoadButton());
+    this.timeText = this.add.text(window.innerWidth - 190, 290, "00:00:00", {
+      color: "#D8202A",
+      fontSize: "28px",
+      fontStyle: "bold",
+    });
+    this.timeTable = this.add.text(window.innerWidth - 1910, 870, "", {
+      color: "#D8202A",
+      fontSize: "28px",
+      fontStyle: "bold",
+    });
+    this.timeTable.setVisible(false);
+    this.harmfulTable = this.add.text(
+      window.innerWidth - 200,
+      320,
+      "H.ness: 0",
+      {
+        color: "#D8202A",
+        fontSize: "28px",
+        fontStyle: "bold",
+      }
+    );
+    this.averageText = this.add.text(
+      window.innerWidth - 1700,
+      0,
+      "average: 0",
+      {
+        color: "#D8202A",
+        fontSize: "28px",
+        fontStyle: "bold",
+      }
+    );
+  }
+
 }
