@@ -2,7 +2,7 @@ import { Position } from "../../shared/classes/position";
 import { Node2D, StateOfNode2D } from "../../shared/classes/node";
 import { Agent } from "../../shared/classes/agent";
 import { AutoAgv } from "../../shared/classes/autoagv";
-//import { Agv } from "./agv";
+import { Agv } from "../../shared/classes/agv";
 
 export class Graph {
   public nodes: Node2D[][];
