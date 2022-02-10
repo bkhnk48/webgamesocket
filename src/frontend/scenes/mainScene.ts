@@ -395,6 +395,41 @@ export class MainScene extends Phaser.Scene {
       .setPosition(window.innerWidth - 245, 320);
   }
 
+  private handleClickSaveButton() {
+    alert("Đã lưu map thành công!");
+    this.mapData = {};
+    this.mapData.agv = this.agv;
+    let saveAgents = [];
+    for (let i = 0; i < this.agents.length; i++) {
+      saveAgents.push({
+        startPos: {
+          x: this.agents[i].getStartPos().x,
+          y: this.agents[i].getStartPos().y,
+        },
+        endPos: {
+          x: this.agents[i].getEndPos().x,
+          y: this.agents[i].getEndPos().y,
+        },
+        id: this.agents[i].getId(),
+      });
+    }
+    this.mapData.agents = saveAgents;
+    const objJSON = JSON.stringify(this.mapData);
+    const text = objJSON;
+    const e = document.createElement("a");
+    e.setAttribute(
+      "href",
+      // "data:text/plain;charset=utf-8," + encodeURIComponent
+      "data:text/plain;charset=utf-8," + text
+    );
+    e.setAttribute("download", "save.json");
+    e.style.display = "none";
+    document.body.appendChild(e);
+    e.click();
+    document.body.removeChild(e);
+    // console.log(text);
+  }
+
   addButton(): void {
     this.saveButton = this.add.text(window.innerWidth - 200, 50, "Save data", {
       backgroundColor: "#eee",
