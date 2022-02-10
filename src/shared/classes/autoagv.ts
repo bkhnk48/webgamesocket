@@ -2,15 +2,16 @@ import { Actor } from "./actor";
 import { Text } from "./text";
 import { Graph } from "../../backend/datastructure/graph";
 import { Node2D, StateOfNode2D } from "./node";
-import { HybridState } from "./statesOfAutoAGV/HybridState";
-import { RunningState } from "./statesOfAutoAGV/RunningState";
-import { MainScene } from "../scenes";
-import { FransenAlgorithm } from "../algorithm/FransenAlgorithm";
-import { Constant, ModeOfPathPlanning } from "../Constant";
-import { ProposedAlgorithm } from "../algorithm/ProposedAlgorithm";
-import { Forcasting } from "./statistic/forcasting";
-import { Trace } from "../algorithm/trace";
-//import { assert } from "console";
+import { HybridState } from "../../backend/datastructure/states/hybridstate";
+import { RunningState } from "../../backend/datastructure/states/runningstate";
+import { MainScene } from "../../frontend/scenes/mainScene";
+import { Constant, ModeOfPathPlanning } from "../constant";
+import { FransenAlgorithm } from "../../backend/algorithm/FransenAlgorithm";
+import { ProposedAlgorithm } from "../../backend/algorithm/ProposedAlgorithm";
+import { Forcasting } from "../../backend/statistic/forcasting";
+//import { ProposedAlgorithm } from "../algorithm/ProposedAlgorithm";
+//import { Forcasting } from "./statistic/forcasting";
+//import { Trace } from "../algorithm/trace";
 const PriorityQueue = require("priorityqueuejs");
 
 export class AutoAgv extends Actor {
