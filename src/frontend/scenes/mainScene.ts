@@ -126,11 +126,93 @@ export class MainScene extends Phaser.Scene {
     }
   }
 
+
+  private initMap(): void {
+    this.map = this.make.tilemap({
+      key: "hospital",
+      tileHeight: 32,
+      tileWidth: 32,
+    });
+    this.tileset = this.map.addTilesetImage("hospital", "tiles");
+    this.noPathLayer = this.map.createLayer("nopath", this.tileset, 0, 0);
+    this.groundLayer = this.map.createLayer("ground", this.tileset, 0, 0);
+    this.roomLayer = this.map.createLayer("room", this.tileset, 0, 0);
+    this.wallLayer = this.map.createLayer("wall", this.tileset, 0, 0);
+    this.pathLayer = this.map.createLayer("path", this.tileset, 0, 0);
+    this.doorLayer = this.map.createLayer("door", this.tileset, 0, 0);
+    this.elevatorLayer = this.map.createLayer("elevator", this.tileset, 0, 0);
+    this.gateLayer = this.map.createLayer("gate", this.tileset, 0, 0);
+    this.bedLayer = this.map.createLayer("bed", this.tileset, 0, 0);
+    this.noPathLayer.setCollisionByProperty({ collides: true });
+    this.roomLayer.setCollisionByProperty({ collides: true });
+    this.physics.world.setBounds(
+      0,
+      0,
+      this.groundLayer.width,
+      this.groundLayer.height
+    );
+    this.groundLayer
+      .getTilesWithin()
+      .filter((v) => v.index != -1)
+      .forEach((v) => {
+        const pos: Position = new Position(v.x, v.y);
+        this.groundPos.push(pos);
+      });
+    this.pathLayer
+      .getTilesWithin()
+      .filter((v) => v.index != -1)
+      .forEach((v) => {
+        const pos: Position = new Position(v.x, v.y);
+        this.pathPos.push(pos);
+      });
+    this.doorLayer
+      .getTilesWithin()
+      .filter((v) => v.index != -1)
+      .forEach((v) => {
+        const pos: Position = new Position(v.x, v.y);
+        this.doorPos.push(pos);
+      });
+    this.gateLayer
+      .getTilesWithin()
+      .filter((v) => v.index != -1)
+      .forEach((v) => {
+        const pos: Position = new Position(v.x, v.y);
+        this.doorPos.push(pos);
+      });
+  }
+
+  private taodanhsachke() {
+    let tiles: Tilemaps.Tile[] = [];
+    this.pathLayer
+      .getTilesWithin()
+      .filter((v) => v.index != -1)
+      .forEach((v) => {
+        tiles.push(v);
+      });
+    for (let i = 0; i < tiles.length; i++) {
+      for (let j = 0; j < tiles.length; j++) {
+        if (i != j) {
+          if (this.checkTilesNeighbor(tiles[i], tiles[j])) {
+            this.danhsachke[tiles[i].x][tiles[i].y].push(
+              new Position(tiles[j].x, tiles[j].y)
+            );
+          }
+        }
+      }
+    }
+  }
+
   create() {
 
-    this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
+    this.initMap();
+    this.taodanhsachke();
+    this.initGraph();
+    this.desDom = this.add.dom(1790, 600).createFromCache("des");
+    this.desDom.setPerspective(800);  
 
-    this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
+    //this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
+
+    //this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
     this.playersConnectedText = this.add.text(20,20,"")
     this.matter.world.setBounds(0,0,1024,750, 50,true, true, true, true)
     
