@@ -181,6 +181,72 @@ export class MainScene extends Phaser.Scene {
       });
   }
 
+  private checkTilesNeighbor(
+    tileA: Tilemaps.Tile,
+    tileB: Tilemaps.Tile
+  ): boolean {
+    // neu o dang xet khong co huong
+    if (!tileA.properties.direction) {
+      if (this.checkTilesUndirection(tileA, tileB)) return true;
+    } else {
+      // neu o dang xet co huong
+      if (tileA.properties.direction == "top") {
+        if (tileA.x == tileB.x && tileA.y == tileB.y + 1) {
+          return true;
+        }
+      }
+      if (tileA.properties.direction == "right") {
+        if (tileA.x + 1 == tileB.x && tileA.y == tileB.y) {
+          return true;
+        }
+      }
+      if (tileA.properties.direction == "bottom") {
+        if (tileA.x == tileB.x && tileA.y + 1 == tileB.y) {
+          return true;
+        }
+      }
+      if (tileA.properties.direction == "left") {
+        if (tileA.x == tileB.x + 1 && tileA.y == tileB.y) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  private checkTilesUndirection(
+    tileA: Tilemaps.Tile,
+    tileB: Tilemaps.Tile
+  ): boolean {
+    if (tileA.x == tileB.x && tileA.y == tileB.y + 1) {
+      if (tileB.properties.direction == "top" || !tileB.properties.direction) {
+        return true;
+      }
+    }
+    if (tileA.x + 1 == tileB.x && tileA.y == tileB.y) {
+      if (
+        tileB.properties.direction == "right" ||
+        !tileB.properties.direction
+      ) {
+        return true;
+      }
+    }
+    if (tileA.x == tileB.x && tileA.y + 1 == tileB.y) {
+      if (
+        tileB.properties.direction == "bottom" ||
+        !tileB.properties.direction
+      ) {
+        return true;
+      }
+    }
+    if (tileA.x == tileB.x + 1 && tileA.y == tileB.y) {
+      if (tileB.properties.direction == "left" || !tileB.properties.direction) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   private taodanhsachke() {
     let tiles: Tilemaps.Tile[] = [];
     this.pathLayer
