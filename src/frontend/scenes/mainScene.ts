@@ -47,8 +47,6 @@ export default class MainScene extends Phaser.Scene {
 
   init(data: any) { }
   preload() {
-      //this.load.image("square", "assets/square.png")
-      //this.load.image("circle", "assets/circle.png")
     this.load.baseURL = "assets/";
     this.load.image({
       key: "tiles",
