@@ -6,7 +6,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "public"),
-    filename: "bundle-front.js",
+    //filename: "bundle-front.js",
+    filename: "front-bundle.js",
   },
   devServer: {
     host: '0.0.0.0', // Required for docker

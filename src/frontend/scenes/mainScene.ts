@@ -1,7 +1,7 @@
 
 import io from 'socket.io-client'
 import Square from '../objects/square'
-//import Ball from '../objects/ball'
+import Ball from '../objects/ball'
 
 interface UserData {
   socketId: string,
@@ -26,19 +26,33 @@ export default class MainScene extends Phaser.Scene {
   playerLabel: Phaser.GameObjects.Text
 
 
-    constructor() {
+  constructor() {
     super('MainScene')
   }
 
   init(data: any) { }
   preload() {
-      this.load.image("square", "assets/square.png")
-      this.load.image("circle", "assets/circle.png")
-   }
+      //this.load.image("square", "assets/square.png")
+      //this.load.image("circle", "assets/circle.png")
+    this.load.baseURL = "assets/";
+    this.load.image({
+      key: "tiles",
+      url: "tilemaps/tiles/hospital.png",
+    });
+    this.load.tilemapTiledJSON("hospital", "tilemaps/json/hospital.json");
+    this.load.image("agv", "sprites/agv.png");
+    this.load.spritesheet("tiles_spr", "tilemaps/tiles/hospital.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.image("instruction", "sprites/instruction.png");
+    this.load.html("setNumAgentForm", "setNumAgents.html");
+    this.load.html("des", "des.html");
+  }
 
   create() {
 
-    this.add.text(500,300,"press anywhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
+    this.add.text(500,300,"press v..v.where to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
     this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
     this.playersConnectedText = this.add.text(20,20,"")
@@ -63,17 +77,17 @@ export default class MainScene extends Phaser.Scene {
          
       })
       this.socket.on("remove player", (pSocket)=>{
-        let o:Square[] = this.opponents.filter((player:Square) => { return player.socketId == pSocket})
+        /*let o:Square[] = this.opponents.filter((player:Square) => { return player.socketId == pSocket})
         if(o && o[0]){
           let p = o[0]
           this.opponents.splice(this.opponents.indexOf(p, 1))
           p.destroy()
 
-        }
+        }*/
       })
       this.socket.on("update all", (data: any[])=>{
         data.forEach((p)=>{
-          let o:Square[] = this.opponents.filter((player:Square) => { return player.socketId == p.socketId})       
+          /*let o:Square[] = this.opponents.filter((player:Square) => { return player.socketId == p.socketId})       
           if(o && o[0] && o[0].socketId != this.player.socketId){
             let opponent = o[0]
             opponent.x = p.x
@@ -81,7 +95,7 @@ export default class MainScene extends Phaser.Scene {
             opponent.setVelocityX(p.vx)
             opponent.setVelocityY(p.vY)
             opponent.angle = p.angle
-          }
+          }*/
 
         })       
       })  
