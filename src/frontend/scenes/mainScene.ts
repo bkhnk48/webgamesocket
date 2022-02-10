@@ -280,7 +280,7 @@ export class MainScene extends Phaser.Scene {
     while(!Constant.validDestination(this.pathPos[r].x, this.pathPos[r].y, 1, 14)){
       r = Math.floor(Math.random() * this.pathPos.length);
     }
-    
+
     this.agv = new Agv(
       this,
       1 * 32,
@@ -289,6 +289,10 @@ export class MainScene extends Phaser.Scene {
       this.pathPos[r].y * 32,
       this.pathLayer
     );
+
+    this.agv.setPushable(false);
+    if(Constant.MODE == ModeOfPathPlanning.PROPOSE)
+      this.emergencyGraph?.setMAgv(this.agv);
 
     //this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
