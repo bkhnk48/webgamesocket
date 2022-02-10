@@ -4,6 +4,8 @@ import io from 'socket.io-client'
 import Square from '../objects/square'
 import Ball from '../objects/ball'
 import { Position } from "../../shared/classes/position";
+import { Agent } from "../../shared/classes/agent";
+
 
 interface UserData {
   socketId: string,
