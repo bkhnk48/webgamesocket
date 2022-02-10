@@ -276,6 +276,20 @@ export class MainScene extends Phaser.Scene {
     this.desDom = this.add.dom(1790, 600).createFromCache("des");
     this.desDom.setPerspective(800);  
 
+    let r = Math.floor(Math.random() * this.pathPos.length);
+    while(!Constant.validDestination(this.pathPos[r].x, this.pathPos[r].y, 1, 14)){
+      r = Math.floor(Math.random() * this.pathPos.length);
+    }
+    
+    this.agv = new Agv(
+      this,
+      1 * 32,
+      14 * 32,
+      this.pathPos[r].x * 32,
+      this.pathPos[r].y * 32,
+      this.pathLayer
+    );
+
     //this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
     //this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
