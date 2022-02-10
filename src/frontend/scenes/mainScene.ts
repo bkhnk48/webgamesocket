@@ -1,4 +1,5 @@
 
+import { Scene, Tilemaps } from "phaser";
 import io from 'socket.io-client'
 import Square from '../objects/square'
 import Ball from '../objects/ball'
