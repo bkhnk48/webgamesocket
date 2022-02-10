@@ -19,7 +19,7 @@ interface UserData {
 }
 
 
-export default class MainScene extends Phaser.Scene {
+export class MainScene extends Phaser.Scene {
   private map!: Tilemaps.Tilemap;
   private tileset!: Tilemaps.Tileset;
   private groundLayer!: Tilemaps.TilemapLayer;
@@ -37,8 +37,8 @@ export default class MainScene extends Phaser.Scene {
   private saveButton?: Phaser.GameObjects.Text;
   private loadButton?: Phaser.GameObjects.Text;
   private mapData: any = {};
-  private spaceGraph?: Graph;
-  private emergencyGraph?: EmergencyGraph;
+  //private spaceGraph?: Graph;
+  //private emergencyGraph?: EmergencyGraph;
   private doorPos!: Position[];
   private timeText?: Phaser.GameObjects.Text;
   private averageText?: Phaser.GameObjects.Text;
