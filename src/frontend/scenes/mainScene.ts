@@ -32,11 +32,31 @@ export default class MainScene extends Phaser.Scene {
   private groundPos!: Position[];
   private pathPos!: Position[];
   private danhsachke: Position[][][];
+  private saveButton?: Phaser.GameObjects.Text;
+  private loadButton?: Phaser.GameObjects.Text;
+  private mapData: any = {};
+  private spaceGraph?: Graph;
+  private emergencyGraph?: EmergencyGraph;
+  private doorPos!: Position[];
+  private timeText?: Phaser.GameObjects.Text;
+  private averageText?: Phaser.GameObjects.Text;
+  private sec: number = 0;
+  public timeTable?: Phaser.GameObjects.Text;
+  private harmfulTable?: Phaser.GameObjects.Text;
+  private _harmfullness: number = 0;
+  private agents!: Agent[];
+  private MAX_AGENT: number = 20;
+  private desDom?: Phaser.GameObjects.DOMElement;
+  public mapOfExits = new Map([
+    ["Gate1", [50, 13, 0]],
+    ["Gate2", [50, 14, 0]],
+  ]);
+  public count : number = 0;
   firstHi = false  
   playersConnectedText: Phaser.GameObjects.Text
-    player: Square
-    socket: SocketIOClient.Socket
-    opponents: Square[] = []
+  player: Square
+  socket: SocketIOClient.Socket
+  opponents: Square[] = []
 
   playerLabel: Phaser.GameObjects.Text
 
