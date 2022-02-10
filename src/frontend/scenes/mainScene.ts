@@ -5,7 +5,9 @@ import Square from '../objects/square'
 import Ball from '../objects/ball'
 import { Position } from "../../shared/classes/position";
 import { Agent } from "../../shared/classes/agent";
-
+import { Agv } from "../../shared/classes/agv";
+import { AutoAgv } from "../../shared/classes/autoagv";
+import { Forcasting } from "../../backend/statistic/forcasting";
 
 interface UserData {
   socketId: string,
@@ -20,6 +22,8 @@ interface UserData {
 
 
 export class MainScene extends Phaser.Scene {
+  private agv!: Agv;
+  public autoAgvs!: Set<AutoAgv>; 
   private map!: Tilemaps.Tilemap;
   private tileset!: Tilemaps.Tileset;
   private groundLayer!: Tilemaps.TilemapLayer;
@@ -54,6 +58,8 @@ export class MainScene extends Phaser.Scene {
     ["Gate2", [50, 14, 0]],
   ]);
   public count : number = 0;
+  public forcasting? : Forcasting;
+
   firstHi = false  
   playersConnectedText: Phaser.GameObjects.Text
   player: Square
@@ -176,6 +182,16 @@ export class MainScene extends Phaser.Scene {
         oldAngle = this.player.angle
       }         
     }    
+  }
+
+  public get harmfullness(): number {
+    return this._harmfullness;
+  }
+  public set harmfullness(value: number) {
+    this._harmfullness = value;
+    this.harmfulTable
+      ?.setText("H.ness: " + this._harmfullness.toFixed(2))
+      .setPosition(window.innerWidth - 245, 320);
   }
 
 }
