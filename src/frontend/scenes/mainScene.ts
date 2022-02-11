@@ -317,6 +317,22 @@ export class MainScene extends Phaser.Scene {
       this.timeText?.setText(Constant.secondsToHMS(this.sec));
     }, 1000);
 
+    var setNumAgentsDOM = this.add
+      .dom(1790, 220)
+      .createFromCache("setNumAgentForm");
+    setNumAgentsDOM.setPerspective(800);
+    // setNumAgentsDOM.setPosition()
+    setNumAgentsDOM.addListener("click");
+    setNumAgentsDOM.on("click", function (this: any, event: any) {
+      if (event.target.id === "submit") {
+        let input = this.getChildByName("numOfAgents");
+        let numAgent = parseInt(input.value);
+        if (!isNaN(numAgent) && numAgent > 0) {
+          this.scene.setMaxAgents(numAgent);
+        }
+      }
+    });
+
     //this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
     //this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
