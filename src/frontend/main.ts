@@ -18,9 +18,7 @@ const config: Phaser.Types.Core.GameConfig = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT
   },
-  scene: [
-     MainScene, 
-  ],
+  scene: [MainScene],
   plugins: {
     scene: [{
       key: 'rexUI',
@@ -31,10 +29,10 @@ const config: Phaser.Types.Core.GameConfig = {
     ]
   },
   physics: {
-    default: 'matter',
+    default: "arcade",
     arcade: {
-      debug: true,
-      gravity: { y: 100}
+      debug: true//,
+      //gravity: { y: 100}
     }
   }
 }
