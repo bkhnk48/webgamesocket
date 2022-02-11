@@ -310,6 +310,7 @@ export class MainScene extends Phaser.Scene {
     this.createAgents(10, 1000);
 
     this.physics.add.collider(this.agv, this.noPathLayer);
+    this.openLinkInstruction();
 
     //this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
@@ -630,5 +631,16 @@ export class MainScene extends Phaser.Scene {
         this.count = 0;
       }
     }, time);
+  }
+
+  openLinkInstruction() {
+    const instruction = this.add
+      .image(window.innerWidth - 125, window.innerHeight - 90, "instruction")
+      .setInteractive();
+    instruction.on("pointerup", () => {
+      window.open(
+        "https://github.com/phamtuanhien/Project20211_HappyHospital#readme"
+      );
+    });
   }
 }
