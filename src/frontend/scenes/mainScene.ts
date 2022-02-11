@@ -398,7 +398,13 @@ export class MainScene extends Phaser.Scene {
       this.playerLabel.x = this.player.x
       this.playerLabel.y = this.player.y-40
     }
-    
+
+    this.forcasting?.log(this.averageText as Phaser.GameObjects.Text);
+    //this.forcasting?.calculate();
+    this.graph.updateState();
+    //this.emergencyGraph?.updateState();
+    this.agv.update();
+    this.forcasting?.calculate();
   }
 
   updateState(){
