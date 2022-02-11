@@ -1,44 +1,64 @@
-import 'phaser'
-import {MainScene} from './scenes/mainScene'
-import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js'
+import { Game, Types } from "phaser";
+import { MainScene } from "./scenes/mainScene";
+import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 
-const DEFAULT_WIDTH = 1024
-const DEFAULT_HEIGHT = 800
-
-const config: Phaser.Types.Core.GameConfig = {
+const gameConfig: Types.Core.GameConfig = {
+  title: "Happy Hospital",
   type: Phaser.WEBGL,
-  backgroundColor: '#aaaaaa',
+  parent: "game",
+  backgroundColor: "#777",
   dom: {
     createContainer: true
-  },
+  },    
   scale: {
-    parent: 'phaser-game',
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: DEFAULT_WIDTH,
-    height: DEFAULT_HEIGHT
-  },
-  scene: [MainScene],
-  plugins: {
-    scene: [{
-      key: 'rexUI',
-      plugin: UIPlugin,
-      mapping: 'rexUI'
-    },
-
-    ]
+    mode: Phaser.Scale.ScaleModes.NONE,
+    width: window.innerWidth,
+    height: window.innerHeight,
   },
   physics: {
     default: "arcade",
     arcade: {
-      debug: true//,
-      //gravity: { y: 100}
-    }
-  }
+      debug: false,
+    },
+  },
+  render: {
+    antialiasGL: false,
+    pixelArt: true,
+  },
+  callbacks: {
+    postBoot: () => {
+      window.sizeChanged();
+    },
+  },
+  canvasStyle: `display: block; width: 100%; height: 100%;`,
+  autoFocus: true,
+  audio: {
+    disableWebAudio: false,
+  },
+  scene: [MainScene],
+  plugins: {
+    scene: [{
+        key: 'rexUI',
+        plugin: UIPlugin,
+        mapping: 'rexUI'
+    },
+  ]
 }
+};
 
-window.addEventListener('load', () => {
-  let game = new Phaser.Game(config)
-})
+window.sizeChanged = () => {
+  if (window.game.isBooted) {
+    setTimeout(() => {
+      window.game.scale.resize(window.innerWidth, window.innerHeight);
 
-//
+      window.game.canvas.setAttribute(
+        "style",
+        `display: block; width: ${window.innerWidth}px; height: ${window.innerHeight}px;`
+      );
+    }, 100);
+  }
+};
+
+window.onresize = () => window.sizeChanged();
+
+window.game = new Game(gameConfig);
