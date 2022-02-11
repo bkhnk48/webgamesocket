@@ -309,6 +309,8 @@ export class MainScene extends Phaser.Scene {
     this.events.on("destroyAgent", this.destroyAgentHandler, this);
     this.createAgents(10, 1000);
 
+    this.physics.add.collider(this.agv, this.noPathLayer);
+
     //this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
     //this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
