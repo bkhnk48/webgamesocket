@@ -400,6 +400,55 @@ export class MainScene extends Phaser.Scene {
     alert("Not yet finished!!");
   }
 
+  private handleClickLoadButton() {
+    const e = document.createElement("input");
+    const reader = new FileReader();
+    const openFile = (event: any) => {
+      var input = event.target;
+      var fileTypes = "json";
+      if (input.files && input.files[0]) {
+        var extension = input.files[0].name.split(".").pop().toLowerCase(),
+          isSuccess = fileTypes.indexOf(extension) > -1;
+        if (isSuccess) {
+          reader.onload = () => {
+            if (typeof reader?.result == "string") {
+              this.mapData = JSON.parse(reader?.result);
+              this.agv.setX(this.mapData.agv.x);
+              this.agv.setY(this.mapData.agv.y);
+              for (let i = 0; i < this.agents.length; i++) {
+                this.agents[i].eliminate();
+                this.agents[i] = new Agent(
+                  this,
+                  new Position(
+                    this.mapData.agents[i].startPos.x,
+                    this.mapData.agents[i].startPos.y
+                  ),
+                  new Position(
+                    this.mapData.agents[i].endPos.x,
+                    this.mapData.agents[i].endPos.y
+                  ),
+                  this.groundPos,
+                  this.mapData.agents[i].id
+                );
+              }
+              // console.log(this.mapData);
+              alert("Đã tải map thành công!");
+            }
+          };
+          reader.readAsText(input.files[0]);
+        } else {
+          alert("File không đúng định dạng. Vui lòng chọn file .json!");
+        }
+      }
+    };
+    e.type = "file";
+    e.style.display = "none";
+    e.addEventListener("change", openFile, false);
+    document.body.appendChild(e);
+    e.click();
+    document.body.removeChild(e);
+  }
+
   addButton(): void {
     this.saveButton = this.add.text(window.innerWidth - 200, 50, "Save data", {
       backgroundColor: "#eee",
