@@ -294,6 +294,15 @@ export class MainScene extends Phaser.Scene {
     if(Constant.MODE == ModeOfPathPlanning.PROPOSE)
       this.emergencyGraph?.setMAgv(this.agv);
     this.addButton();
+
+    this.timeTable && this.agv.writeDeadline(this.timeTable);
+    var des = document.getElementById("des");
+    if (des) {
+      while(des.childNodes.length >= 1) {
+        des.firstChild && des.removeChild(des.firstChild);
+      }
+      des.appendChild(des.ownerDocument.createTextNode(this.timeTable?.text || ""));
+    }
     //this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
     //this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
