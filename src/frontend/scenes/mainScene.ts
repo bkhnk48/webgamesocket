@@ -11,6 +11,7 @@ import { Forcasting } from "../../backend/statistic/forcasting";
 import { Graph } from "../../backend/datastructure/graph";
 import { EmergencyGraph } from "../../backend/datastructure/emergencygraph";
 import { Constant, ModeOfPathPlanning } from "../../shared/constant";
+import { RandomDistribution } from "../../backend/algorithm/random";
 
 interface UserData {
   socketId: string,
@@ -587,12 +588,6 @@ export class MainScene extends Phaser.Scene {
       this.agents.push(agent);
     }
 
-    /*if(Constant.MODE == ModeOfPathPlanning.FRANSEN){
-      this.graph?.setAgents(this.agents);
-    }
-    else{
-      this.emergencyGraph?.setAgents(this.agents);
-    }*/
     this.graph.setAgents(this.agents);
 
     // thêm ngẫu nhiên agent vào môi trường
@@ -625,12 +620,6 @@ export class MainScene extends Phaser.Scene {
         }
       );
       this.agents.push(agent);
-      /*if(Constant.MODE == ModeOfPathPlanning.FRANSEN){
-        this.graph?.setAgents(this.agents);
-      }
-      else{
-        this.emergencyGraph?.setAgents(this.agents);
-      }*/
       this.graph.setAgents(this.agents);
       
       this.count++;
