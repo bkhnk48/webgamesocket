@@ -305,6 +305,7 @@ export class MainScene extends Phaser.Scene {
     }
 
     this.createRandomAutoAgv();
+    this.events.on("destroyAgent", this.destroyAgentHandler, this);
     //this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
     //this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
@@ -533,5 +534,22 @@ export class MainScene extends Phaser.Scene {
       this.autoAgvs.add(tempAgv);
       this.graph.setAutoAgvs(this.autoAgvs);
     }
+  }
+
+  private destroyAgentHandler(agent: Agent) {
+    let index = 0;
+    for (let i = 0; i < this.agents.length; i++) {
+      if (this.agents[i].getId() == agent.getId()) index = i;
+    }
+    this.agents.splice(index, 1);
+    this.graph.removeAgent(agent);
+    this.autoAgvs.forEach(
+      (elem) => {
+          if(elem.collidedActors.has(agent))
+          {
+            elem.collidedActors.delete(agent);
+          }
+      }
+    );
   }
 }
