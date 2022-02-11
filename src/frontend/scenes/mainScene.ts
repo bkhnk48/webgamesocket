@@ -303,6 +303,8 @@ export class MainScene extends Phaser.Scene {
       }
       des.appendChild(des.ownerDocument.createTextNode(this.timeTable?.text || ""));
     }
+
+    this.createRandomAutoAgv();
     //this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
     //this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
@@ -512,4 +514,24 @@ export class MainScene extends Phaser.Scene {
     );
   }
 
+  private createRandomAutoAgv() {
+    let r = Math.floor(Math.random() * this.pathPos.length);
+    while(!Constant.validDestination(this.pathPos[r].x, this.pathPos[r].y, 1, 13)){
+      r = Math.floor(Math.random() * this.pathPos.length);
+    }
+    if (this.graph) {
+      var tempAgv = new AutoAgv(this, 1, 13, this.pathPos[r].x, this.pathPos[r].y, this.graph);
+      this.timeTable && tempAgv.writeDeadline(this.timeTable);
+      var des = document.getElementById("des");
+      if (des) {
+        while(des.childNodes.length >= 1) {
+          des.firstChild && des.removeChild(des.firstChild);
+        }
+  
+        des.appendChild(des.ownerDocument.createTextNode(this.timeTable?.text || ""));
+      }
+      this.autoAgvs.add(tempAgv);
+      this.graph.setAutoAgvs(this.autoAgvs);
+    }
+  }
 }
