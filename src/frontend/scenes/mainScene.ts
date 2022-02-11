@@ -388,6 +388,11 @@ export class MainScene extends Phaser.Scene {
     })     
   }
 
+  public setMaxAgents(num: number): void {
+    this.MAX_AGENT = num;
+    alert("Thiết lập số Agents thành công!");
+  }
+
   update(){
     if(this.player){
       this.playerLabel.x = this.player.x
