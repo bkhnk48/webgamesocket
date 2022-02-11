@@ -25,7 +25,7 @@ interface UserData {
 }
 
 
-export class MainScene extends Phaser.Scene {
+export class MainScene extends Scene {
   private agv!: Agv;
   public autoAgvs!: Set<AutoAgv>; 
   private map!: Tilemaps.Tilemap;
