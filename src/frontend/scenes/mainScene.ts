@@ -312,6 +312,11 @@ export class MainScene extends Phaser.Scene {
     this.physics.add.collider(this.agv, this.noPathLayer);
     this.openLinkInstruction();
 
+    setInterval(() => {
+      this.sec++;
+      this.timeText?.setText(Constant.secondsToHMS(this.sec));
+    }, 1000);
+
     //this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
     //this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
