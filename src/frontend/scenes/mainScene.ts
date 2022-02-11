@@ -306,6 +306,8 @@ export class MainScene extends Phaser.Scene {
 
     this.createRandomAutoAgv();
     this.events.on("destroyAgent", this.destroyAgentHandler, this);
+    this.createAgents(10, 1000);
+
     //this.add.text(500,300,"press nonwhere to hop", {fontSize:"50px"}).setOrigin(.5,.5)
 
     //this.playerLabel =  this.add.text(-50,-50," this is you").setOrigin(.5,1)
@@ -551,5 +553,91 @@ export class MainScene extends Phaser.Scene {
           }
       }
     );
+  }
+
+  createAgents(numAgentInit: number, time: number) {
+    // khoi tao numAgentInit dau tien
+    let randoms : number[] = [];
+    while (randoms.length < numAgentInit * 2) {
+      var r = Math.floor(Math.random() * this.doorPos.length);
+      if (randoms.indexOf(r) === -1) randoms.push(r);
+    }
+    this.agents = [];
+    for (let i = 0; i < numAgentInit; i++) {
+      let agent = new Agent(
+        this,
+        this.doorPos[randoms[i]],
+        this.doorPos[randoms[i + numAgentInit]],
+        this.groundPos,
+        Math.floor(Math.random() * 100)
+      );
+      agent.setPushable(false);
+      this.physics.add.collider(agent, this.roomLayer);
+      this.physics.add.overlap(this.agv, agent, () => {
+        agent.handleOverlap();
+        this.agv.handleOverlap();
+      });
+      this.autoAgvs.forEach(
+        (item) => {
+          item && this.physics.add.overlap(agent, item, () => {
+            item.freeze(agent);
+          });
+        }
+      );
+      this.agents.push(agent);
+    }
+
+    /*if(Constant.MODE == ModeOfPathPlanning.FRANSEN){
+      this.graph?.setAgents(this.agents);
+    }
+    else{
+      this.emergencyGraph?.setAgents(this.agents);
+    }*/
+    this.graph.setAgents(this.agents);
+
+    // thêm ngẫu nhiên agent vào môi trường
+    setInterval(() => {
+      if (this.agents.length >= this.MAX_AGENT) return;
+      var rand = new RandomDistribution();
+      var ran = rand.getProbability();
+      if (ran > 1) console.log(rand.getName() + " " + ran);
+      if (ran > 0.37) return;
+      var r1 = Math.floor(Math.random() * this.doorPos.length);
+      var r2 = Math.floor(Math.random() * this.doorPos.length);
+      let agent = new Agent(
+        this,
+        this.doorPos[r1],
+        this.doorPos[r2],
+        this.groundPos,
+        Math.floor(Math.random() * 100)
+      );
+      agent.setPushable(false);
+      this.physics.add.collider(agent, this.roomLayer);
+      this.physics.add.overlap(this.agv, agent, () => {
+        agent.handleOverlap();
+        this.agv.handleOverlap();
+      });
+      this.autoAgvs.forEach(
+        (item) => {
+          item && this.physics.add.overlap(agent, item, () => {
+            item.freeze(agent);
+          });
+        }
+      );
+      this.agents.push(agent);
+      /*if(Constant.MODE == ModeOfPathPlanning.FRANSEN){
+        this.graph?.setAgents(this.agents);
+      }
+      else{
+        this.emergencyGraph?.setAgents(this.agents);
+      }*/
+      this.graph.setAgents(this.agents);
+      
+      this.count++;
+      if(this.count == 10){
+        this.createRandomAutoAgv();
+        this.count = 0;
+      }
+    }, time);
   }
 }
