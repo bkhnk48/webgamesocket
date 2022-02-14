@@ -28,11 +28,11 @@ export function clientConnection(io: any) {
     });
   })
 
-     setInterval(()=>{
+  setInterval(()=>{
     var time = new Date();
     console.log(currentUsers.length+" logged in @ "+ time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }))
-     }, 5000) 
-  }
+  }, 5000);
+}
 
 function removeUser(currentUsers: UserData[], socket: SocketIO.Socket) {
   let u: UserData[] = currentUsers.filter((user: UserData) => { return user.socketId == socket.id; });
