@@ -20,7 +20,7 @@ export function clientConnection(io: any) {
   
   io.on('connection', function (socket) {
     
-    GameCommunication(io, socket, currentUsers)  
+    //GameCommunication(io, socket, currentUsers)  
     
     //remove the users data when they disconnect.
     socket.on('disconnect', function () {
