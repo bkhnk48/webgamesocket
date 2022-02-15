@@ -66,7 +66,7 @@ export class MainScene extends Scene {
 
   firstHi = false  
   playersConnectedText: Phaser.GameObjects.Text
-  player: Square
+  //player: Square
   socket: SocketIOClient.Socket
   opponents: Square[] = []
 
@@ -343,7 +343,7 @@ export class MainScene extends Scene {
     this.socket.on("first agv", (data: UserData, r: number)=>{
       if(this.firstHi != true){
         this.firstHi = true
-      this.player = new Square(this, data)     
+      //this.player = new Square(this, data)     
       this.time.addEvent({ delay: 1000/60,  loop: true, callback: this.updateState(), callbackScope: this });
       }        
     })
@@ -379,8 +379,8 @@ export class MainScene extends Scene {
     
     this.socket.emit("ready", this.pathPos)    
     this.input.on("pointerdown", ()=>{
-      if(this.player.y>700)
-      this.player.applyForce(new Phaser.Math.Vector2(.025-.05*Math.random(), -.05-.125*Math.random()))
+      //if(this.player.y>700)
+      //this.player.applyForce(new Phaser.Math.Vector2(.025-.05*Math.random(), -.05-.125*Math.random()))
     })     
   }
 
@@ -390,10 +390,10 @@ export class MainScene extends Scene {
   }
 
   update(){
-    if(this.player){
+    /*if(this.player){
       this.playerLabel.x = this.player.x
       this.playerLabel.y = this.player.y-40
-    }
+    }*/
 
     this.forcasting?.log(this.averageText as Phaser.GameObjects.Text);
     this.graph.updateState();
@@ -412,7 +412,7 @@ export class MainScene extends Scene {
       this.playersConnectedText.setText("clients connected: "+(this.opponents.length+1).toString())
 
 
-      if(this.player && (Math.abs(this.player.x - oldX) > 3 || Math.abs(this.player.y - oldY) > 3)){
+      /*if(this.player && (Math.abs(this.player.x - oldX) > 3 || Math.abs(this.player.y - oldY) > 3)){
         let data = {
           socketId: this.socket.id,
           x: this.player.x,
@@ -425,7 +425,7 @@ export class MainScene extends Scene {
         oldX = this.player.x
         oldY = this.player.y
         oldAngle = this.player.angle
-      }         
+      }*/         
     }    
   }
 
