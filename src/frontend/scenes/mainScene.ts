@@ -381,7 +381,7 @@ export class MainScene extends Scene {
       })       
     })  
     
-    this.socket.emit("ready")    
+    this.socket.emit("ready", this.pathPos)    
     this.input.on("pointerdown", ()=>{
       if(this.player.y>700)
       this.player.applyForce(new Phaser.Math.Vector2(.025-.05*Math.random(), -.05-.125*Math.random()))
