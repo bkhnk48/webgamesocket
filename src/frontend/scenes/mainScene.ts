@@ -340,14 +340,10 @@ export class MainScene extends Scene {
     //this.matter.world.setBounds(0,0,1024,750, 50,true, true, true, true)
     
     this.socket = io()
-    this.socket.on("first hi", (data: UserData, opponentData: UserData[])=>{
+    this.socket.on("first agv", (data: UserData, r: number)=>{
       if(this.firstHi != true){
         this.firstHi = true
       this.player = new Square(this, data)     
-      opponentData.forEach((o)=>{
-        let opponent = new Square(this, o)     
-        this.opponents.push(opponent)
-      })
       this.time.addEvent({ delay: 1000/60,  loop: true, callback: this.updateState(), callbackScope: this });
       }        
     })
