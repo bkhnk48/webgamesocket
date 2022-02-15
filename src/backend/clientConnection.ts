@@ -1,5 +1,6 @@
 import {GameCommunication} from './gameComm'
 import Phaser from 'phaser'
+import { ServerCommunication } from './serverComm'
 
 interface UserData {
   socketId: string,
@@ -21,6 +22,7 @@ export function clientConnection(io: any) {
   io.on('connection', function (socket) {
     
     //GameCommunication(io, socket, currentUsers)  
+    ServerCommunication(io, socket);
     
     //remove the users data when they disconnect.
     socket.on('disconnect', function () {
