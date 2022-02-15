@@ -1,4 +1,3 @@
-
 interface UserData {
     socketId: string,
     loginTime: number,
@@ -8,7 +7,7 @@ interface UserData {
     vy:number
     angle: number,
     color: string
-  }
+}
   
   interface RecentData {
     socketId: string,
@@ -19,12 +18,10 @@ interface UserData {
     angle: number
   }
 
-  export function GameCommunication(io, socket, currentUsers) {
+export function GameCommunication(io, socket, currentUsers) {
+  let recentUpdates: RecentData[] = [] //array to store socketids and player data of each connection
 
-
-    let recentUpdates: RecentData[] = [] //array to store socketids and player data of each connection
-
-socket.on('player update', function (data:UserData) {
+  socket.on('player update', function (data:UserData) {
     let p = recentUpdates.filter(update => update.socketId == data.socketId)
     if(p && p[0]){
        let player = p[0]
